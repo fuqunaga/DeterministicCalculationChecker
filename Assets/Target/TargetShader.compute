@@ -1,0 +1,17 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel Compute
+
+#include "Noise.cginc"
+
+StructuredBuffer<float3> InputBuffer;
+RWStructuredBuffer<float> OutputBuffer;
+float4 Input;
+
+[numthreads(1,1,1)]
+void Compute (uint3 id : SV_DispatchThreadID)
+{
+    int idx = id.x;
+    // float output = snoise(InputBuffer[idx]);
+    float output = 1/ InputBuffer[idx];
+    OutputBuffer[idx] = output;
+}
